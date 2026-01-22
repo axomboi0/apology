@@ -17,8 +17,8 @@
     }
 
     .intro, .letter {
-      max-width: 720px;
-      padding: 24px;
+      max-width: 760px;
+      padding: 26px;
       opacity: 0;
       transition: opacity 2s ease;
     }
@@ -28,6 +28,7 @@
       opacity: 1;
     }
 
+    /* INTRO */
     .intro {
       text-align: center;
     }
@@ -36,33 +37,77 @@
       color: #d3c6ff;
       font-weight: normal;
       margin-bottom: 20px;
+      font-size: 1.6em;
     }
 
     .intro p {
       color: #cfcfff;
-      font-size: 1em;
+      font-size: 1.1em;
     }
 
+    /* LETTER */
     .letter {
       display: none;
-      line-height: 1.95;
+      line-height: 2;
+      font-size: 1.15em; /* BIGGER FOR MOBILE */
     }
 
     h1 {
       font-weight: normal;
       margin-bottom: 28px;
       color: #d3c6ff;
+      font-size: 1.5em;
     }
 
     p {
-      margin-bottom: 22px;
+      margin-bottom: 26px;
       color: #e9e9ff;
     }
 
     .sign {
-      margin-top: 44px;
-      font-size: 0.95em;
+      margin-top: 46px;
+      font-size: 1em;
       color: #b8b8ff;
+    }
+
+    /* VINYL + MEMORY (TOP) */
+    .now-playing {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 18px;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(200,180,255,0.4);
+      border-radius: 26px;
+      backdrop-filter: blur(10px);
+      color: #e9e9ff;
+      font-size: 0.95em;
+      z-index: 1000;
+      text-align: left;
+    }
+
+    .vinyl {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #111 30%, #000 31%, #222 55%, #000 56%);
+      animation: spin 4s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .memory {
+      font-size: 0.9em;
+      opacity: 0.85;
+      line-height: 1.4;
     }
   </style>
 </head>
@@ -78,6 +123,20 @@
     <p>Tap anywhere</p>
   </div>
 
+  <!-- VINYL + MEMORY -->
+  <div class="now-playing" id="nowPlaying">
+    <div class="vinyl"></div>
+    <div>
+      <strong>Apocalypse</strong><br>
+      Cigarettes After Sex<br>
+      <div class="memory">
+        You once sang this song for me on my birthday…<br>
+        it was the best gift of my life.<br>
+        Your voice was really sweet.
+      </div>
+    </div>
+  </div>
+
   <!-- LETTER (YOUR WORDS UNCHANGED) -->
   <div class="letter" id="letter">
     <h1>To you,</h1>
@@ -85,8 +144,7 @@
     <p>
       I know my sorry isn’t enough to clear my mistakes…
       I know I lost your trust, and with that, your respect.
-      And I understand why you became cold. I wasnt much 
-      good to you in last few months and you lost that
+      And I understand why you became cold. and you lost that
       feeling you used to adore me and that warmth but still
       I feel like you love me, I miss you so much...
     </p>
@@ -158,7 +216,7 @@
     </p>
 
     <div class="sign">
-      — Rehan, your hopeless lover
+      — Rehan, a hopeless lover
     </div>
   </div>
 
@@ -167,16 +225,15 @@
   </audio>
 
   <script>
-    // ensure intro fades in
     window.onload = () => {
       document.getElementById("intro").classList.add("active");
     };
 
-    // single tap to unlock audio + show letter
     document.body.addEventListener("click", function () {
       const intro = document.getElementById("intro");
       const letter = document.getElementById("letter");
       const music = document.getElementById("music");
+      const nowPlaying = document.getElementById("nowPlaying");
 
       intro.style.display = "none";
       letter.style.display = "block";
@@ -186,6 +243,7 @@
       }, 100);
 
       music.play().catch(() => {});
+      nowPlaying.style.display = "flex";
     }, { once: true });
   </script>
 
