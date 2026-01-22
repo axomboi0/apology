@@ -9,23 +9,43 @@
       background: radial-gradient(circle at top, #2b0a3d, #040406);
       color: #f2f2f2;
       font-family: Georgia, serif;
+      margin: 0;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      margin: 0;
+    }
+
+    .intro, .letter {
+      max-width: 720px;
       padding: 24px;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    .intro.active,
+    .letter.active {
+      opacity: 1;
+    }
+
+    .intro {
+      text-align: center;
+    }
+
+    .intro h1 {
+      color: #d3c6ff;
+      font-weight: normal;
+      margin-bottom: 20px;
+    }
+
+    .intro p {
+      color: #cfcfff;
+      font-size: 1em;
     }
 
     .letter {
-      max-width: 680px;
+      display: none;
       line-height: 1.95;
-      animation: fadeIn 3s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
     }
 
     h1 {
@@ -49,16 +69,23 @@
 
 <body>
 
-  <div class="letter">
+  <!-- INTRO (TECH ONLY, NOT EMOTIONAL) -->
+  <div class="intro active" id="intro">
     <h1>
       To my first and last love of my life,<br>
-      Tanishkka…
+      Tanishkka… i want to say something..
     </h1>
+    <p>Tap anywhere</p>
+  </div>
+
+  <!-- YOUR ORIGINAL MESSAGE (UNCHANGED) -->
+  <div class="letter" id="letter">
+    <h1>To you,</h1>
 
     <p>
       I know my sorry isn’t enough to clear my mistakes…
       I know I lost your trust, and with that, your respect.
-      And I understand why you became cold. and you lost that 
+      And I understand why you became cold. and you lost that
       feeling you used to adore me and that warmth but still
       I feel like you love me, I miss you so much...
     </p>
@@ -68,7 +95,7 @@
       I am truly sorry, all that stupid mistakes
       I made and hurted you in a unimaginable way
       and staying up with wont end bad, if it does
-      I'll be the baddest all of them 
+      I'll be the baddest all of them
       and I really love you darling...
     </p>
 
@@ -134,9 +161,19 @@
     </div>
   </div>
 
-  <audio autoplay loop>
+  <audio id="music" loop>
     <source src="apocalypse.mp3" type="audio/mpeg">
   </audio>
+
+  <script>
+    document.body.addEventListener("click", function () {
+      document.getElementById("intro").style.display = "none";
+      const letter = document.getElementById("letter");
+      letter.style.display = "block";
+      setTimeout(() => letter.classList.add("active"), 100);
+      document.getElementById("music").play();
+    }, { once: true });
+  </script>
 
 </body>
 </html>
